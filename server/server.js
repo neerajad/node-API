@@ -6,8 +6,10 @@ var {Todo} = require('./models/todo');
 //var {User} = require('./models/user');
 
 var app = express();
+
 app.use(bodyParser.json());
-app.post('/todos', (req, res) => {
+
+app.post('/todosaa', (req, res) => {
   var todo = new Todo({
     text: req.body.text,
     completed: req.body.completed
@@ -18,6 +20,16 @@ app.post('/todos', (req, res) => {
     res.status(400).send(err);
   })
 });
+
+app.post('/todos', (req, res) => {
+  Todo.find().then((doc) => {
+    res.send({
+      doc
+    });
+  }, (e) => {
+    res.status(400).send(e);
+  })
+})
 
 app.listen(3000, () => {
   console.log('Started on port 3000');
